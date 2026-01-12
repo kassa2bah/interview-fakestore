@@ -3,7 +3,7 @@
 
 import { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Star, ShoppingCart, Check, Minus, Plus } from 'lucide-react';
+import { ArrowLeft, Star, ShoppingCart, Check, Minus, Plus, Shield, Truck, RotateCcw } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { fetchProductById, clearCurrentProduct } from '@/store/productsSlice';
 import { addToCart, updateQuantity } from '@/store/cartSlice';
@@ -11,6 +11,7 @@ import Header from '@/components/Header';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { formatGMD } from '@/lib/currency';
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -147,9 +148,28 @@ const ProductDetails = () => {
 
             {/* Price */}
             <div className="pt-4 border-t border-border">
-              <span className="text-4xl font-bold text-foreground">
-                ${currentProduct.price.toFixed(2)}
-              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-bold text-foreground">
+                  {formatGMD(currentProduct.price)}
+                </span>
+                <span className="text-sm text-muted-foreground uppercase tracking-wider">GMD</span>
+              </div>
+            </div>
+
+            {/* Trust badges */}
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              <div className="flex flex-col items-center text-center p-3 bg-secondary/50 rounded-lg">
+                <Truck className="h-5 w-5 text-accent mb-1" />
+                <span className="text-xs text-muted-foreground">Free Delivery</span>
+              </div>
+              <div className="flex flex-col items-center text-center p-3 bg-secondary/50 rounded-lg">
+                <Shield className="h-5 w-5 text-accent mb-1" />
+                <span className="text-xs text-muted-foreground">Secure Payment</span>
+              </div>
+              <div className="flex flex-col items-center text-center p-3 bg-secondary/50 rounded-lg">
+                <RotateCcw className="h-5 w-5 text-accent mb-1" />
+                <span className="text-xs text-muted-foreground">Easy Returns</span>
+              </div>
             </div>
 
             {/* Description */}

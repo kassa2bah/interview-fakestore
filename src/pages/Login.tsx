@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Eye, EyeOff, Store, AlertCircle } from 'lucide-react';
+import { Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/store';
 import { loginUser, clearError } from '@/store/authSlice';
 import { Button } from '@/components/ui/button';
@@ -46,17 +46,19 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-secondary px-4">
       <div className="w-full max-w-md animate-slide-up">
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2 group">
-            <Store className="h-10 w-10 text-accent transition-transform group-hover:scale-110" />
+            <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-orange-600 text-white shadow-xl shadow-accent/30 group-hover:scale-105 transition-transform">
+              <span className="font-bold text-xl">G</span>
+            </div>
             <span className="font-display text-3xl font-semibold text-foreground">
-              FakeStore
+              GMDStore
             </span>
           </Link>
-          <p className="text-muted-foreground mt-2">Sign in to your account</p>
+          <p className="text-muted-foreground mt-3">Sign in to your account</p>
         </div>
 
         {/* Login Form */}
