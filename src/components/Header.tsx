@@ -2,7 +2,7 @@
 // Displays logo, navigation links, and cart count
 
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, LogOut, Store, FileText } from 'lucide-react';
+import { ShoppingCart, User, LogOut, FileText } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '@/store';
 import { logout } from '@/store/authSlice';
 import { Button } from '@/components/ui/button';
@@ -24,9 +24,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <Store className="h-7 w-7 text-accent transition-transform group-hover:scale-110" />
+            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br from-accent to-orange-600 text-white shadow-lg shadow-accent/30">
+              <span className="font-bold text-lg">G</span>
+            </div>
             <span className="font-display text-xl font-semibold text-foreground">
-              FakeStore
+              GMDStore
             </span>
           </Link>
 

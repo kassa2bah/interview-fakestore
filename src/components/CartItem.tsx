@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/store';
 import { updateQuantity, removeFromCart } from '@/store/cartSlice';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { formatGMD } from '@/lib/currency';
 
 interface CartItemProps {
   item: CartItemType;
@@ -52,7 +53,7 @@ const CartItem = ({ item }: CartItemProps) => {
           {product.category}
         </span>
         <p className="text-lg font-semibold text-foreground mt-2">
-          ${product.price.toFixed(2)}
+          {formatGMD(product.price)}
         </p>
       </div>
 
@@ -92,8 +93,8 @@ const CartItem = ({ item }: CartItemProps) => {
         </div>
 
         {/* Line total */}
-        <span className="text-sm font-semibold text-muted-foreground">
-          ${(product.price * quantity).toFixed(2)}
+        <span className="text-sm font-semibold text-accent">
+          {formatGMD(product.price * quantity)}
         </span>
       </div>
     </div>

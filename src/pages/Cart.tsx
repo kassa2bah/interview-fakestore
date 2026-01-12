@@ -2,13 +2,14 @@
 // Displays cart items with quantity controls and total
 
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingBag, ArrowLeft, Trash2 } from 'lucide-react';
+import { ShoppingBag, ArrowLeft, Trash2, Shield, CreditCard } from 'lucide-react';
 import { useAppSelector, useAppDispatch } from '@/store';
 import { clearCart } from '@/store/cartSlice';
 import Header from '@/components/Header';
 import CartItem from '@/components/CartItem';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import { formatGMD, convertToGMD } from '@/lib/currency';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ const Cart = () => {
                 <div className="flex justify-between text-sm">
                   <span className="text-muted-foreground">Subtotal</span>
                   <span className="font-medium text-foreground">
-                    ${totalPrice.toFixed(2)}
+                    {formatGMD(totalPrice)}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
@@ -120,30 +121,40 @@ const Cart = () => {
                   <span className="font-medium text-success">Free</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Tax</span>
+                  <span className="text-muted-foreground">Tax (15%)</span>
                   <span className="font-medium text-foreground">
-                    ${(totalPrice * 0.08).toFixed(2)}
+                    {formatGMD(totalPrice * 0.15)}
                   </span>
                 </div>
               </div>
 
               <div className="border-t border-border pt-4 mb-6">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-baseline">
                   <span className="text-lg font-semibold text-foreground">
                     Total
                   </span>
-                  <span className="text-2xl font-bold text-foreground">
-                    ${(totalPrice * 1.08).toFixed(2)}
-                  </span>
+                  <div className="text-right">
+                    <span className="text-2xl font-bold text-foreground">
+                      {formatGMD(totalPrice * 1.15)}
+                    </span>
+                    <p className="text-xs text-muted-foreground">GMD (Gambian Dalasi)</p>
+                  </div>
                 </div>
               </div>
 
               <Button
                 onClick={handleCheckout}
-                className="btn-accent w-full h-14 text-lg"
+                className="btn-accent w-full h-14 text-lg gap-2"
               >
+                <CreditCard className="h-5 w-5" />
                 Checkout
               </Button>
+
+              {/* Trust indicators */}
+              <div className="flex items-center justify-center gap-2 mt-4 text-xs text-muted-foreground">
+                <Shield className="h-4 w-4" />
+                <span>Secure checkout powered by SSL</span>
+              </div>
 
               {!isAuthenticated && (
                 <p className="text-xs text-muted-foreground text-center mt-4">
